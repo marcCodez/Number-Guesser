@@ -10,11 +10,11 @@ GAME FUNCTION:
 // Game values - create variables
 let min = 1,
     max = 10,
-    winningNum = 2,
+    winningNum = getRandomNum(min, max),
     guessesLeft = 3;
 
 // UI Elements
-const UIgame = document.querySelector('#game'),
+const UIgameWrapper = document.querySelector('#game'),
       UIminNum = document.querySelector('.min-num'),
       UImaxNum = document.querySelector('.max-num'),
       UIguessBtn = document.querySelector('#guess-btn'),
@@ -25,6 +25,19 @@ const UIgame = document.querySelector('#game'),
 // createTextNode for new elements, textContent for already existing elements (change content)
 UIminNum.textContent = min;
 UImaxNum.textContent = max;
+
+
+// Since the play-again class is added after the page loads
+//We need to use event delegation, by adding the listener to a parent and search for the target which is play-again
+// mousedown instead of click so we are able to see the message
+// as soon as we release click will automatically play again
+// Play again event listener
+UIgameWrapper.addEventListener('mousedown', function(e){
+if (e.target.className === 'play-again'){
+    // reload the page
+    window.location.reload();
+}
+});
 
 // Listen for guess
 UIguessBtn.addEventListener('click', function(){
@@ -92,6 +105,21 @@ UIguessInput.style.borderColor = color;
 UImessage.style.color = color;
 // Set message
 setMessage(msg);
+
+// Play again?
+UIguessBtn.value = 'Play Again';
+//append the play-again class
+UIguessBtn.className += 'play-again';
+}
+
+// Get Winning Number
+function getRandomNum(min, max){
+    // if we did * 10 it would give us a number between 0 - 9
+    // so we use max-min+1 plus the min
+    //Math.floor to run down
+ //Returning it will assign it to winningNum
+return Math.floor(Math.random()*(max-min+1)+min);
+
 }
 
 // Set message

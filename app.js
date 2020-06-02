@@ -38,16 +38,61 @@ if (isNaN(guess) || guess < min || guess > max) {
 
 // check if won
 if(guess === winningNum){
+// Game over - won
+
+// Disable input
+// UIguessInput.disabled = true;
+// // Change border color
+// UIguessInput.style.borderColor = 'green';
+// // Set message
+// setMessage(`${winningNum} is correct, YOU WIN!`, 'green');
+
+//We can replace the above commented code with:
+gameOver(true, `${winningNum} is correct, YOU WIN!`)
+} else {
+    // Wrong Number - guessesLeft = guessesLeft - 1
+guessesLeft -= 1;
+
+if (guessesLeft === 0){
+    // Game over - lost
+
+    gameOver(false, `Game Over, you lost. The correct number was ${winningNum}`);
+
+//     // Disable input
+// UIguessInput.disabled = true;
+// // Change border color ddddd 
+// UIguessInput.style.borderColor = 'red';
+// // Set message
+// setMessage(`Game Over, you lost. The correct number was ${winningNum}`, 'red');
+} else {
+    // Game continues - answer wrong
+
+    // Change border color
+UIguessInput.style.borderColor = 'red';
+
+// Clear Input
+UIguessInput.value = '';
+
+// Tell user its the wrong number
+    setMessage(`${guess} is not correct, ${guessesLeft} guesses left`, 'red')
+}
+}
+});
+
+// Game over - a function to remove the repeat code
+function gameOver(won, msg){
+let color;
+// ternary operator
+won === true ? color = 'green' : color = 'red';
 // Disable input
 UIguessInput.disabled = true;
 // Change border color
-UIguessInput.style.borderColor = 'green';
+UIguessInput.style.borderColor = color;
+// Set text color
+UImessage.style.color = color;
 // Set message
-setMessage(`${winningNum} is correct, YOU WIN!`, 'green');
-} else {
-
+setMessage(msg);
 }
-});
 
 // Set message
 function setMessage(msg, color) {

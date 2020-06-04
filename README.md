@@ -1,0 +1,1 @@
+My third and final DOM project from Brad Traversy's course "Modern JavaScript From the Beginning". You have 3 attempts to guess the winnning number between 1 and 10. Play it on: https://marccodez.github.io/Number-Guesser/
